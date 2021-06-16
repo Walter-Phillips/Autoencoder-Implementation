@@ -9,8 +9,8 @@ from torchvision import transforms
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
 
-if not os.path.exists('./mlp_img'):
-    os.mkdir('./mlp_img')
+if not os.path.exists('./mlimg'):
+    os.mkdir('./mlimg')
 
 
 def to_img(x):
@@ -65,14 +65,14 @@ for epoch in range(num_epochs):
         img, _ = data
         img = img.view(img.size(0), -1)
         img = Variable(img).cuda()
-        # ===================forward=====================
+
         output = model(img)
         loss = criterion(output, img)
-        # ===================backward====================
+
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    # ===================log========================
+
     print('epoch [{}/{}], loss:{:.4f}'
           .format(epoch + 1, num_epochs, loss.data[0]))
     if epoch % 10 == 0:
